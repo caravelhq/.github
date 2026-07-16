@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caravel — Your own crew of AI agents</title>
+  <meta name="description" content="A self-hosted staff of named agents that runs in the background, takes work over chat, and shows you everything in a live dashboard. On your own infrastructure.">
+  <link rel="canonical" href="https://caravel.run/">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #181c27;
+      --border: #262d3d;
+      --text: #e8eaf0;
+      --muted: #8892a4;
+      --accent: #4f8ef7;
+      --accent-dim: #1e3a6e;
+      --code-bg: #0d1117;
+      --radius: 10px;
+      --max: 860px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-link {
+      font-size: 14px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 14px;
+    }
+    .nav-link:hover { color: var(--text); border-color: var(--muted); text-decoration: none; }
+
+    /* SECTIONS */
+    section { padding: 80px 24px; }
+    section + section { padding-top: 0; }
+    .inner { max-width: var(--max); margin: 0 auto; }
+
+    /* HERO */
+    .hero { padding: 100px 24px 80px; text-align: center; }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 .line2 { color: var(--muted); font-weight: 500; }
+    .hero p {
+      font-size: clamp(16px, 2vw, 19px);
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn:hover { opacity: 0.85; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+
+    /* SECTION LABEL */
+    .label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 48px;
+    }
+
+    /* WHY CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    code {
+      font-family: "SF Mono", "Fira Code", Menlo, monospace;
+      font-size: 0.88em;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: #a5d6ff;
+    }
+
+    /* HOW IT WORKS */
+    .narrative { max-width: 680px; }
+    .narrative p { color: var(--muted); margin-bottom: 20px; font-size: 16px; }
+    .narrative em { color: var(--text); font-style: italic; }
+    .screenshot-slot {
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 24px 0 32px;
+    }
+
+    /* WHO IT'S FOR */
+    .for-text { max-width: 680px; }
+    .for-text p { color: var(--muted); margin-bottom: 16px; }
+    .for-text em { color: var(--text); font-style: italic; }
+
+    /* CTA / QUICKSTART */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .cta-section h2 { margin-bottom: 12px; }
+    .cta-section .sub { color: var(--muted); margin-bottom: 36px; font-size: 16px; }
+    .quickstart {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      text-align: left;
+      max-width: 560px;
+      margin: 0 auto 32px;
+      overflow-x: auto;
+    }
+    .quickstart pre {
+      font-family: "SF Mono", "Fira Code", Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #cdd9e5;
+      white-space: pre;
+    }
+    .quickstart .comment { color: #636e7b; }
+    .quickstart .cmd { color: #a5d6ff; }
+    .requires {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+    .requires a { color: var(--muted); text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 600px) {
+      section { padding: 60px 20px; }
+      .hero { padding: 72px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">caravel<span>.</span>run</span>
+    <a href="https://github.com/caravelhq/caravel" class="nav-link">⭐ Star on GitHub</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="inner">
+    <h1>
+      Your own crew of AI agents.<br>
+      <span class="line2">Running on your machine, on the subscription you already pay for.</span>
+    </h1>
+    <p>Caravel is a self-hosted staff of named agents — a coordinator and her specialists — that runs in the background, takes work over chat, and shows you everything in a live dashboard. On your own infrastructure. No new API bill, no cloud, no third-party chat app required.</p>
+    <div class="cta-row">
+      <a href="#quickstart" class="btn btn-primary">Clone and run →</a>
+      <a href="https://github.com/caravelhq/caravel" class="btn btn-secondary">⭐ Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CARAVEL -->
+<section>
+  <div class="inner">
+    <div class="label">Why Caravel</div>
+    <h2>A crew, not a configuration.</h2>
+    <div class="cards">
+
+      <div class="card">
+        <h3>A team, not a workflow</h3>
+        <p>Most agent tools give you a graph to configure — nodes, edges, state machines, a Python SDK to babysit. Caravel gives you a roster of named people. Alice coordinates. Bob builds. Ray researches. Each one has its own identity, its own memory, its own rules — so each brings a different perspective and stays focused on its lane, exactly like a real team. You're not splitting one assistant's attention six ways. You're handing the right job to the right specialist.</p>
+      </div>
+
+      <div class="card">
+        <h3>It runs on what you already pay for</h3>
+        <p>No separate API subscription, no per-token meter ticking in the background. Caravel runs on your existing coding-agent CLI — the one you're already subscribed to. Point it, start the daemon, and your crew is live. Nothing new to buy.</p>
+      </div>
+
+      <div class="card">
+        <h3>Your chat, your infrastructure</h3>
+        <p>Talk to your crew through Caravel's own web dashboard, running on your machine. Want it on your phone from the café? Run <code>tailscale serve http://127.0.0.1:4632</code> and the dashboard is securely accessible from any of your Tailscale devices — still your box, still your network, no cloud in the middle. Telegram is there if you want it, but it's optional. Nothing about how you talk to your agents has to route through someone else's servers.</p>
+      </div>
+
+      <div class="card">
+        <h3>Context that compounds</h3>
+        <p>Your agents get sharper the more you organise your work. Group things into project folders and your crew reads them as context — they learn how you work, not just what you asked. Session logs give them memory of what came before. And when you're juggling several streams at once, each task runs in its own session thread: focused context during rework, no bloat, no cross-pollination between unrelated jobs.</p>
+      </div>
+
+      <div class="card">
+        <h3>One limit hits, it keeps going</h3>
+        <p>Caravel is provider-agnostic. If your primary provider hits a wall, it routes to another — Claude Code, GLM, OpenRouter, whatever you've wired up. Your team doesn't stop because one door closed.</p>
+      </div>
+
+      <div class="card">
+        <h3>Everything is a file you own</h3>
+        <p>No database. No proprietary cloud. Every agent is a folder on your disk — its identity, its memory, its task queue, all plain files you can read, edit, and back up. Add <code>agents/bob/agent.json</code> and Bob shows up everywhere. Delete the folder and he's gone. Nothing about your team lives on someone else's server.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="inner">
+    <div class="label">How it works</div>
+    <h2>Ask Alice. The crew gets to work.</h2>
+    <div class="narrative">
+      <p>Say it's Tuesday and you're heads-down on something else.</p>
+      <p>You open your Caravel dashboard — running on your own machine, or from your phone via <code>tailscale serve</code> — and ask Alice: <em>"Pull the competitor pricing for the three tools we talked about, and draft a summary I can send the board."</em> Alice is your coordinator. She already knows the context — the project's in a folder she reads from — so she doesn't ask you to explain the three tools again. She triages the job: research goes to Ray, the write-up goes to Bob. Then she gets back to listening.</p>
+    </div>
+    <div class="screenshot-slot">[ screenshot: Caravel dashboard — the request to Alice ]</div>
+    <div class="narrative">
+      <p>The fleet lights up. Ray's queue picks up a task and moves it from <em>open</em> to <em>claimed</em>. Bob's does the same a moment later. Each runs in its own session thread, so Ray digging through pricing pages doesn't muddy Bob's drafting. You didn't open a terminal. You didn't configure a pipeline. You asked, and the work started.</p>
+    </div>
+    <div class="screenshot-slot">[ screenshot: dashboard — Ray and Bob with active tasks, the open → claimed → done buckets ]</div>
+    <div class="narrative">
+      <p>Ray finishes the research and drops his findings where Bob can pick them up. Bob writes the summary. When the family of tasks is done, Alice consolidates the results and pings you back — <em>"Here's the draft, Ray's sources are linked at the bottom."</em></p>
+      <p>That's the whole loop. A background daemon, a coordinator who dispatches, named specialists who each work their own thread, and a dashboard so you can see it happen. You run it once and it's just... there, on call, using the subscription you already have — and every project you organise makes the next request land faster.</p>
+    </div>
+    <div class="screenshot-slot">[ screenshot: dashboard chat — Alice's consolidated reply with the finished draft ]</div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section>
+  <div class="inner">
+    <div class="label">Who it's for</div>
+    <h2>A staff, not a framework.</h2>
+    <div class="for-text">
+      <p>Caravel is for the solo operator and the small team who want a <em>staff</em>, not a <em>framework</em>.</p>
+      <p>If you're one person doing the work of several — running a project, a product, a small business — and you've wished you could hand things off without hiring, this is that. You already pay for a coding-agent subscription. Caravel turns it into a crew that runs in the background: takes requests over chat, works while you're doing something else, and reports back when it's done. The more you organise your work into projects, the more context your crew carries — so it gets better at your work the longer you run it.</p>
+      <p>It's deliberately <em>not</em> built for engineering teams assembling AI pipelines in production. If you want a graph framework with a Python SDK and a state machine, there are excellent ones — LangGraph, CrewAI, the OpenAI Agents SDK — and you should use them. Caravel is the other thing: a personal staff you run yourself, on your own machine and your own network, with everything folder-isolated and nothing proprietary in the loop.</p>
+      <p>If that sounds like you — you'll know within the first five minutes of running it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / QUICKSTART -->
+<section class="cta-section" id="quickstart">
+  <div class="inner">
+    <h2>Start your crew in five minutes.</h2>
+    <p class="sub">Clone it, run it, ask Alice. That's the whole setup.</p>
+    <div class="quickstart">
+      <pre><span class="cmd">git clone</span> https://github.com/caravelhq/caravel.git
+<span class="cmd">cd</span> caravel
+<span class="cmd">bun install</span>
+<span class="cmd">bash scripts/caravel start</span>    <span class="comment"># daemon + dashboard on http://127.0.0.1:4632</span></pre>
+    </div>
+    <p class="requires">Requires a <a href="https://claude.ai/download">coding-agent CLI</a> (e.g. Claude Code) already installed and authenticated.<br>Caravel runs on top of the subscription you already have.</p>
+    <div class="cta-row">
+      <a href="https://github.com/caravelhq/caravel" class="btn btn-primary">⭐ Star on GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="https://github.com/kelnorris82">@kelnorris82</a> · <a href="https://github.com/caravelhq/caravel">GitHub</a> · Everything is a file. Nothing is proprietary.</p>
+</footer>
+
+</body>
+</html>
