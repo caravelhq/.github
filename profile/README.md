@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/caravel-banner.svg" alt="Caravel" />
+  <img src="https://raw.githubusercontent.com/caravelhq/caravel/master/images/caravel-banner.svg" alt="Caravel" width="480">
 </p>
 
 <p align="center"><b>A self-hosted, provider-agnostic staff of named agents — running on your existing AI subscription.</b></p>
