@@ -2,7 +2,7 @@
   <img src="images/caravel-banner.svg" alt="Caravel" />
 </p>
 
-<p align="center"><b>A self-hosted, provider-agnostic staff of named agents — running on your own coding subscription.</b></p>
+<p align="center"><b>A self-hosted, provider-agnostic staff of named agents — running on your existing AI subscription.</b></p>
 
 # Your own crew of AI agents.
 ### Running on your machine, on the subscription you already pay for.
