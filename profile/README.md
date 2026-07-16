@@ -24,7 +24,7 @@ No separate API subscription, no per-token meter ticking in the background. Cara
 
 ## Your chat, your infrastructure
 
-Talk to your crew through Caravel's own web dashboard, running on your machine. Want it on your phone from the café? Run `tailscale serve http://127.0.0.1:4632` and the dashboard is securely accessible from any of your Tailscale devices — still your box, still your network, no cloud in the middle. Telegram is there if you want it, but it's optional. Nothing about how you talk to your agents has to route through someone else's servers.
+Talk to your crew through Caravel's own web dashboard, running on your machine. Want it on your phone from the café? Run a tailscale vpn (we show you how) and the dashboard is securely accessible from any of your devices — still your box, still your network, no cloud in the middle. Nothing about how you talk to your agents has to route through someone else's servers.
 
 ## Context that compounds
 
@@ -44,7 +44,7 @@ No database. No proprietary cloud. Every agent is a folder on your disk — its 
 
 Say it's Tuesday and you're heads-down on something else.
 
-You open your Caravel dashboard — running on your own machine, or from your phone via `tailscale serve` — and ask Alice: *"Pull the competitor pricing for the three tools we talked about, and draft a summary I can send the board."* Alice is your coordinator. She already knows the context — the project's in a folder she reads from — so she doesn't ask you to explain the three tools again. She triages the job: research goes to Ray, the write-up goes to Bob. Then she gets back to listening.
+You open your Caravel dashboard — running on your own machine, or via your VPN — and ask Alice: *"Pull the competitor pricing for the three tools we talked about, and draft a summary I can send the board."* Alice is your coordinator. She already knows the context — the project's in a folder she reads from — so she doesn't ask you to explain the three tools again. She triages the job: research goes to Ray, the write-up goes to Bob. Then she gets back to listening.
 
 The fleet lights up. Ray's queue picks up a task and moves it from *open* to *claimed*. Bob's does the same a moment later. Each runs in its own session thread, so Ray digging through pricing pages doesn't muddy Bob's drafting. You didn't open a terminal. You didn't configure a pipeline. You asked, and the work started.
 
@@ -66,7 +66,7 @@ If that sounds like you — you'll know within the first five minutes of running
 
 ---
 
-## Start your crew in five minutes
+## Float your boat in five minutes
 
 Clone it, run it, ask Alice. That's the whole setup.
 
