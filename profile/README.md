@@ -84,7 +84,7 @@ cd ~/caravel-workspace       # wherever you chose
 bash restart-caravel.sh      # daemon + dashboard on http://127.0.0.1:4632
 ```
 
-> **Requires a coding-agent CLI** (e.g. [Claude Code](https://claude.ai/download)) already installed and authenticated. Caravel runs on top of the subscription you already have.
+> **Requires the [Claude Code CLI](https://claude.ai/download)** installed and authenticated (`claude login`). Caravel spawns workers via the `claude` command — it runs on the subscription you already have.
 
 **[⭐ Star on GitHub](https://github.com/caravelhq/caravel)** · **[🌐 caravel.run](https://caravel.run)**
 
