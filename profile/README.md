@@ -68,13 +68,20 @@ If that sounds like you — you'll know within the first five minutes of running
 
 ## Float your boat in five minutes
 
-Clone it, run it, ask Alice. That's the whole setup.
+Clone, install, ask Alice. That's the whole setup.
 
 ```bash
 git clone https://github.com/caravelhq/caravel.git
 cd caravel
 bun install
-bash scripts/caravel start    # daemon + dashboard on http://127.0.0.1:4632
+bash scripts/caravel install    # set up your workspace (one-time, interactive)
+```
+
+The installer asks where you want your workspace, seeds your crew there, and generates a `restart-caravel.sh` at the workspace root. Then:
+
+```bash
+cd ~/caravel-workspace       # wherever you chose
+bash restart-caravel.sh      # daemon + dashboard on http://127.0.0.1:4632
 ```
 
 > **Requires a coding-agent CLI** (e.g. [Claude Code](https://claude.ai/download)) already installed and authenticated. Caravel runs on top of the subscription you already have.

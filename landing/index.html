@@ -317,12 +317,17 @@
 <section class="cta-section" id="quickstart">
   <div class="inner">
     <h2>Start your crew in five minutes.</h2>
-    <p class="sub">Clone it, run it, ask Alice. That's the whole setup.</p>
+    <p class="sub">Clone, install, ask Alice. That's the whole setup.</p>
     <div class="quickstart">
       <pre><span class="cmd">git clone</span> https://github.com/caravelhq/caravel.git
 <span class="cmd">cd</span> caravel
 <span class="cmd">bun install</span>
-<span class="cmd">bash scripts/caravel start</span>    <span class="comment"># daemon + dashboard on http://127.0.0.1:4632</span></pre>
+<span class="cmd">bash scripts/caravel install</span>  <span class="comment"># set up your workspace (one-time, interactive)</span></pre>
+    </div>
+    <p class="requires" style="margin-bottom:12px;">The installer asks where you want your workspace, seeds your crew there, and drops <code>restart-caravel.sh</code> at the root. Then:</p>
+    <div class="quickstart" style="margin-bottom:24px;">
+      <pre><span class="cmd">cd</span> ~/caravel-workspace
+<span class="cmd">bash restart-caravel.sh</span>       <span class="comment"># daemon + dashboard on http://127.0.0.1:4632</span></pre>
     </div>
     <p class="requires">Requires a <a href="https://claude.ai/download">coding-agent CLI</a> (e.g. Claude Code) already installed and authenticated.<br>Caravel runs on top of the subscription you already have.</p>
     <div class="cta-row">
