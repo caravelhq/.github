@@ -330,7 +330,7 @@
 <span class="cmd">bash restart-caravel.sh</span>       <span class="comment"># daemon + dashboard on http://127.0.0.1:4632</span></pre>
     </div>
     <p class="requires">Requires the <a href="https://claude.ai/download">Claude Code CLI</a> installed and authenticated (<code>claude login</code>).<br>Caravel spawns workers via the <code>claude</code> command — it runs on the subscription you already have.</p>
-    <p class="requires" style="margin-top:16px;"><strong>Want it on your phone?</strong> Run <code>tailscale serve http://127.0.0.1:4632</code> once on the host — your dashboard appears at <code>https://&lt;machine&gt;.&lt;tailnet&gt;.ts.net</code> on every Tailscale device, HTTPS included.</p>
+    <p class="requires" style="margin-top:16px;"><strong>Want it on your phone?</strong> On Linux, first run <code>sudo tailscale set --operator=$USER</code> (once), then <code>tailscale serve http://127.0.0.1:4632</code> — your dashboard appears at <code>https://&lt;machine&gt;.&lt;tailnet&gt;.ts.net</code> on every Tailscale device, HTTPS included.</p>
     <div class="cta-row">
       <a href="https://github.com/caravelhq/caravel" class="btn btn-primary">⭐ Star on GitHub</a>
     </div>
